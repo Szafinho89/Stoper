@@ -46,30 +46,33 @@ const addSec = () => {
 }
 
 const handleStart = () => {
-    timer1 = setInterval(addSec, 400)
+    clearInterval(timer1)   // zabezpieczenie przed wielokrotnym nacisnieciem PLAY
+                            // inaczej kazdorazowe klikniecie w play na nowo by odpalalo timer1 i one by sie na siebie nakladaly
+    timer1 = setInterval(addSec, 1000)
 }
 
 const pause = () => {
-    clearTimeout(timer1)
+    clearInterval(timer1) // tu można było skorzystać z clearTimout(timer1) - tez   dziala
 }
 
 const createHistory = (x) => {
     timeList.style.display= 'none'
     number++
     let newLi = document.createElement('li')
-    let newSpan = document.createElement('span')
-    newSpan.textContent= x
+    let newSpan = document.createElement('span') //spana mozna dodac inaczej
+    newSpan.textContent= x                       //przez innerHTML w newLi
     newLi.textContent= `Pomiar nr ${number}:`
     newLi.append(newSpan)
-    
     timeList.append(newLi)
 }
 
 const stop = () => {
-    clearTimeout(timer1)
-    time.style.visibility= 'visible'
-    time.textContent= 'Ostatni czas: ' + stopwatch.textContent
-    createHistory(stopwatch.textContent)
+    clearInterval(timer1) // tu można było skorzystać z clearTimout(timer1)
+    if (stopwatch.textContent !== '0:00') {
+        time.style.visibility= 'visible'
+        createHistory(stopwatch.textContent)
+        time.textContent= 'Ostatni czas: ' + stopwatch.textContent
+    }
     secCounter = 0
     minCounter = 0
     stopwatch.textContent= minCounter + ':0' + secCounter
@@ -87,19 +90,19 @@ const reset = () => {
     secCounter = 0
     minCounter = 0
     stopwatch.textContent= minCounter + ':0' + secCounter
-    time.textContent= ''
+    time.style.visibility= 'hidden'
     timeList.remove('li')
-
+    clearInterval(timer1)
 }
 
 const showInfo = () => {
     modalShadow.style.display = 'block'
-   
+    modalShadow.classList.toggle('modal-animation')
 }
 
 const closeModal = () => {
     modalShadow.style.display = 'none'
-
+    modalShadow.classList.toggle('modal-animation')
 }
 
 startBtn.addEventListener('click', handleStart)
@@ -109,3 +112,4 @@ historyBtn.addEventListener('click', archive)
 resetBtn.addEventListener('click',  reset)
 infoBtn.addEventListener('click', showInfo)
 closeModalBtn.addEventListener('click', closeModal)
+window.addEventListener('click', e => e.target === modalShadow ? closeModal() : false) //to jest najczesciej uzywany sposób sprawdzenia czy klikamy w modal czy w arenę obok niego - najprostszy zapis
