@@ -18,22 +18,35 @@ let number = 0
 
 
 const addSec = () => {
-    if (secCounter < 59) {
+    if (secCounter < 9) {
         secCounter++
-        if (secCounter < 10) {
-        stopwatch.textContent= minCounter + ':0' + secCounter
-        } else if (secCounter >= 10) {
-        stopwatch.textContent= minCounter + ':' + secCounter
-        }
-    } else  if (secCounter === 59) {
-        secCounter = 0
+        stopwatch.textContent= `${minCounter}:0${secCounter}`
+    } else if (secCounter >= 9 && secCounter < 59) {
+        secCounter++
+        stopwatch.textContent= `${minCounter}:${secCounter}`
+    } else {
         minCounter++
-        stopwatch.textContent= minCounter + ':0' + secCounter
+        secCounter = 0
+        stopwatch.textContent= `${minCounter}:0${secCounter}`
     }
+    
+// opcjonalnie ale jednak wyżej widać przedzialy w kolejnosci od 0 w górę.
+    // if (secCounter < 59) {
+    //     secCounter++
+    //     if (secCounter < 10) {
+    //     stopwatch.textContent= minCounter + ':0' + secCounter
+    //     } else {
+    //     stopwatch.textContent= minCounter + ':' + secCounter
+    //     }
+    // } else {
+    //     secCounter = 0
+    //     minCounter++
+    //     stopwatch.textContent= minCounter + ':0' + secCounter
+    // }
 }
 
 const handleStart = () => {
-    timer1 = setInterval(addSec, 1000)
+    timer1 = setInterval(addSec, 400)
 }
 
 const pause = () => {
