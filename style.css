@@ -54,6 +54,7 @@ body {
 h1 {
     margin-bottom: 20px;
     font-size: 72px;
+    /* pocieniamy tego h1 bo jest za gruby */
     font-weight: lighter;
 }
 

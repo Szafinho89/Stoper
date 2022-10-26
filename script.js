@@ -16,7 +16,6 @@ let minCounter = 0
 let timer1;
 let number = 0
 
-
 const addSec = () => {
     if (secCounter < 9) {
         secCounter++
@@ -59,10 +58,7 @@ const createHistory = (x) => {
     timeList.style.display= 'none'
     number++
     let newLi = document.createElement('li')
-    let newSpan = document.createElement('span') //spana mozna dodac inaczej
-    newSpan.textContent= x                       //przez innerHTML w newLi
-    newLi.textContent= `Pomiar nr ${number}:`
-    newLi.append(newSpan)
+    newLi.innerHTML= `Pomiar nr ${number}: <span>${x}</span>`
     timeList.append(newLi)
 }
 
@@ -78,7 +74,8 @@ const stop = () => {
     stopwatch.textContent= minCounter + ':0' + secCounter
 }
 
-const archive = () => {
+const archive = () => { //tu jednak jest raczej dobrze zrobione bo sam nadalem display: 'none' w funkcji createHistory() - czyli historia sie tworzy ale pod przykryciem 'none'. A odpalajac funkcje archive zmienia sie to none na block i przy ponownym kliknieciu zmienia sie z block na none
+
     if (timeList.style.display === 'none') {
         timeList.style.display= 'block'
     } else {
@@ -94,22 +91,24 @@ const reset = () => {
     timeList.remove('li')
     clearInterval(timer1)
 }
+console.log(modalShadow);
 
 const showInfo = () => {
-    modalShadow.style.display = 'block'
+    //to jest ciekawe, bo pierwotnie w elemencie modalShadow czyli w tagu <div class="modal-shadow"> nie ma ustawionego atrybutu style na display:none - jak widac w tym divie nie ma NIC poza klasą. I dopiero w klasie sa podane wlasciwosci z wartosciami,a przeciez używając tutaj w modalShadow.style.display to tak jakbysmy byli wewnatrz tego tagu w HTMLu - czyli on nie ma teraz ani display none ani display block (pomimo tego co jest w CSS) !!!!! - dlatego w ifie sprawdzamy czy jest różny od 'block' a nie czy jest === 'none' (bo nie jest, bo nie ma tam NIC) -
+    if (modalShadow.style.display !== 'block') {
+        modalShadow.style.display = 'block'
+    } else {
+        modalShadow.style.display = 'none'
+    }
     modalShadow.classList.toggle('modal-animation')
 }
 
-const closeModal = () => {
-    modalShadow.style.display = 'none'
-    modalShadow.classList.toggle('modal-animation')
-}
-
-startBtn.addEventListener('click', handleStart)
-pauseBtn.addEventListener('click', pause)
-stopBtn.addEventListener('click', stop)
-historyBtn.addEventListener('click', archive)
-resetBtn.addEventListener('click',  reset)
-infoBtn.addEventListener('click', showInfo)
-closeModalBtn.addEventListener('click', closeModal)
-window.addEventListener('click', e => e.target === modalShadow ? closeModal() : false) //to jest najczesciej uzywany sposób sprawdzenia czy klikamy w modal czy w arenę obok niego - najprostszy zapis
+startBtn.addEventListener('click', handleStart);
+pauseBtn.addEventListener('click', pause);
+stopBtn.addEventListener('click', stop);
+historyBtn.addEventListener('click', archive);
+resetBtn.addEventListener('click',  reset);
+infoBtn.addEventListener('click', showInfo);
+closeModalBtn.addEventListener('click', showInfo);
+window.addEventListener('click', e => e.target === modalShadow ? showInfo() : false); 
+//to jest najczesciej uzywany sposób sprawdzenia czy klikamy w modal czy w arenę obok niego - najprostszy zapis
