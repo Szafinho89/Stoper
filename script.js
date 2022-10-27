@@ -21,6 +21,7 @@ const colorPanel = document.querySelector('.colors')
 const colorOne = document.querySelector('.one')
 const colorTwo = document.querySelector('.two')
 const colorThree = document.querySelector('.three')
+const colorFour = document.querySelector('.four')
 let root = document.documentElement //?!?!?!?!?!?!?!?!?!?!?!?!!?
 
 const addSec = () => {
@@ -145,4 +146,9 @@ colorTwo.addEventListener('click', () => {
 colorThree.addEventListener('click', () => {
     root.style.setProperty('--first-color', 'rgb(0, 255, 42)')
     root.style.setProperty('--hover-color', 'rgb(28, 209, 58)')//chyba niepotrzebne to
+})
+
+colorFour.addEventListener('click', () => {
+    root.style.setProperty('--first-color', 'rgb(255, 238, 0)')
+    root.style.setProperty('--hover-color', 'rgb(255,255,0, 0.8)')
 })
