@@ -7,8 +7,10 @@
 /* w tym projekcie bedziemy uzywali zmiennych dlatego korzystamy z roota */
 /* zobaczymy jak fajnie mzoemy sie odnosic za pomocą naszych zmiennych w CSS */
 :root { 
-    --first-color: #FA1406;
-    --second-color: #D2C7BE;
+    --first-color: rgb(250,20,6);
+    --second-color: rgb(190, 210, 197);
+    /* dodalismy do colors */
+    --hover-color: rgb(209, 33, 24);
 }
 
 body {
@@ -33,27 +35,38 @@ body {
     border-radius: 8px;
     box-shadow: 5px 5px 10px black;
     color: #fff;
+    /* dodalismy do colors */
+    overflow:visible;
 }
 
 /* po to dalismy na wraperze position relative bo teraz bedziemy pozycjonowac absolutnie wlasnie znak zapytania wzgl rodzica*/
-.info {
+.info i {     /* dodalismy do colors - dodale msamo i*/
+    font-size: 24px;     /* dodalismy do colors */
     position: absolute;
     top: 6px;
-    right: 14px;
+    /* right: 14px; */     /* usuwam do colors */
     padding: 20px;
-    font-size: 24px;
+    /* font-size: 24px; */  /* usuwam do colors */
     color: var(--second-color);
     cursor: pointer;
     transition: color .3s;
 }
 
-.info:hover {
-    color: var(--first-color);
+.info .fa-question {    /* dodalismy do colors */
+    right: 14px;
+}
+
+.info .fa-paintbrush { /* dodalismy do colors */
+    right: 60px;
+}
+
+.info i:hover {
+    color: var(--hover-color);
 }
 
 h1 {
     margin-bottom: 20px;
-    font-size: 72px;
+    font-size: 60px;
     /* pocieniamy tego h1 bo jest za gruby */
     font-weight: lighter;
 }
@@ -133,7 +146,8 @@ button:focus {
     height: 360px;
     padding: 30px 60px;
     border-radius: 15px;
-    background-color: rgb(245,245,245);
+    background-color: rgb(32, 32, 32);
+    color: #fff;
 }
 
 .modal h3 {
@@ -147,17 +161,23 @@ button:focus {
     font-size: 20px;
 }
 
+/* dodane do colors */
+.modal i, 
+.modal strong {
+    color: var(--first-color);
+}
+
 .modal .close {
     /* żeby móc pracowac na marginesach dajemy */
     display: block;
     margin: 40px auto 0;
     width: 200px;
-    background-color: var(--first-color);
+    background-color: #333;
     transition: background-color .3s;
 }
 
 .modal .close:hover {
-    background-color: rgb(226,36,26);
+    background-color: #111;
 }
 
 .modal-animation {
@@ -172,4 +192,62 @@ button:focus {
     100% {
         opacity: 1;
     }
+}
+
+/* zmiana kolorów */
+.colors {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    position: absolute;
+    top: 100px;
+    right: -100px;
+    width: 64px;
+    height: 220px;
+    transition: transform .3s;
+}
+
+.color {
+    width: 40px;
+    height: 40px;
+    border: 1px solid black;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color .5s, box-shadow .5s;
+}
+
+/* dodac ta klase po kliknieciu pedzla */
+.show-colors {
+    transform: translateX(-110px);
+}
+
+.one {
+    background-color: rgb(250, 20, 6);
+    box-shadow: 0 0 8px rgb(250, 20, 6);
+}
+
+.two {
+    background-color: rgb(6, 173, 250);
+    box-shadow: 0 0 8px rgb(6, 173, 250);
+}
+
+.three {
+    background-color: rgb(0, 255, 42);
+    box-shadow: 0 0 8px rgb(0, 255, 42);
+}
+
+.one:hover {
+    background-color: rgb(209, 33, 24);
+    box-shadow: 0 0 16px rgb(250, 20, 6);
+}
+
+.two:hover {
+    background-color: rgb(28, 145, 199);
+    box-shadow: 0 0 16px rgb(6, 173, 250);
+}
+
+.three:hover {
+    background-color: rgb(28, 209, 58);
+    box-shadow: 0 0 16px rgb(0, 255, 42);
 }
